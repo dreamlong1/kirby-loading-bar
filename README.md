@@ -1,10 +1,6 @@
 # 🌟 Kirby Progress Bar
 >
-> 一个具有极强游戏视觉效果的 Web Components 星之卡比进度条组件。
-
-纯原生 JavaScript 打造，运用 Shadow DOM 技术完美隔离样式，借助 Canvas 高性能渲染逐帧动画与粒子特效。即插即用，无需任何框架依赖，拥有厚重的复古街机画面质感与满分平滑的过渡动画。
-
-## 🎮 效果演示 (Demo)
+> 一个星之卡比进度条组件。
 
 ![Demo效果](./demo.webp)
 
