@@ -34,7 +34,7 @@
 
 ## ⚙️ API 文档 (API Reference)
 
-该组件支持像原生 HTML 标签一样，通过修改 DOM 属性，或者通过 JavaScript 实例调用来完全掌控进度状态。
+组件支持像原生 HTML 标签一样，通过修改 DOM 属性，或者通过 JavaScript 实例调用来完全掌控进度状态。
 
 ### ✅ 支持的属性 (Attributes)
 
