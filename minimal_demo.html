@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最低可复用形态演示</title>
+    <!-- 第一步：引入你的组件脚本 -->
+    <script src="./kirby-progress.js"></script>
+
+    <!-- （可选）：只有在有必要让外部环境贴合组件主题时，需要的基础样式 -->
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #08101a;
+            font-family: sans-serif;
+            color: white;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 680px;
+        }
+
+        /* 可选的调试控制器，仅用于拖动进度演示组件响应 */
+        .mock-api {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .mock-api input {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- 
+            第二步：直接像使用普通的 HTML 标签一样使用它！
+            支持的属性: 
+               value="0-100"      (当前进度值)
+               asset-base="./frames/" (默认会自动寻找帧图片目录)
+               autoplay          (开启后会自动播放吸入动画)
+        -->
+        <kirby-progress id="my-loader" value="15"></kirby-progress>
+
+        <div class="mock-api">
+            <input type="range" id="progress-slider" min="0" max="100" value="15">
+            <p>外部状态注入：<span id="label">15%</span></p>
+        </div>
+    </div>
+
+    <!-- 第三步：如同操作任何原生 DOM 元素一样用 JS 跟它交互 -->
+    <script>
+        const loader = document.getElementById("my-loader");
+        const slider = document.getElementById("progress-slider");
+        const label = document.getElementById("label");
+
+        // 绑定一个原生的滑动条来改变进度
+        slider.addEventListener("input", (e) => {
+            const val = e.target.value;
+            // 方式 A：直接调用组件对外的 setValue 实例方法
+            loader.setValue(val);
+
+            // 方式 B：由于做了属性监听，直接改 DOM 属性也是合法的：
+            // loader.setAttribute("value", val); 
+        });
+
+        // 监听组件对外发出的进度回调事件
+        loader.addEventListener("progress", (e) => {
+            slider.value = Math.floor(e.detail.value);
+            label.textContent = `${Math.floor(e.detail.value)}%`;
+        });
+
+        // 监听组件满进度的结算事件
+        loader.addEventListener("complete", (e) => {
+            console.log("Loading is fully complete! Total value reached:", e.detail.value);
+        });
+    </script>
+</body>
+
+</html>
